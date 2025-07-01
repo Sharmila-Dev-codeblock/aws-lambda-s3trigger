@@ -1,0 +1,38 @@
+service: s3-excel-processor
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:GetObject
+          Resource: arn:aws:s3:::news3awsbucket1/*
+        - Effect: Allow
+          Action:
+            - dynamodb:BatchWriteItem
+          Resource: arn:aws:dynamodb:ap-south-1:738146172566:table/userTable
+
+functions:
+  s3ExcelHandler:
+    handler: dist/handler.handler
+    events:
+      - s3:
+          bucket: news3awsbucket1
+          event: s3:ObjectCreated:*
+          existing: true 
+          forceDeploy: true 
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: false
+    exclude: ['aws-sdk']
+    target: node18
+    platform: node
