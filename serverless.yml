@@ -20,7 +20,7 @@ provider:
 
 functions:
   s3ExcelHandler:
-    handler: dist/handler.handler
+    handler: handler.handler
     events:
       - s3:
           bucket: news3awsbucket1

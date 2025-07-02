@@ -1,0 +1,14 @@
+{
+  "Records": [
+    {
+      "s3": {
+        "bucket": {
+          "name": "news3awsbucket1"
+        },
+        "object": {
+          "key": "uploads/users5.xlsx"
+        }
+      }
+    }
+  ]
+}

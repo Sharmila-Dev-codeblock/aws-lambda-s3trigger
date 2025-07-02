@@ -12,10 +12,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "esbuild": "^0.19.12",
-    "serverless": "^3.40.0",
-    "serverless-esbuild": "^1.55.1",
-    "typescript": "^5.8.3"
+    "serverless": "^3.40.0"
   },
   "keywords": [],
   "author": "",

@@ -14,7 +14,7 @@ const BATCH_SIZE = 25;
 const streamToBuffer = async (stream) => {
   const chunks = [];
   for await (const chunk of stream) {
-    chunks.push(chunk);
+    chunks?.push(chunk);
   }
   return Buffer.concat(chunks);
 };
@@ -32,13 +32,13 @@ const validateUser = (user, index) => {
   if (isRowEmpty(user)) {
     return { valid: false, error: `Row ${index + 2}: Empty row` };
   }
-  if (!user.userId || (typeof user.userId !== "string" && typeof user.userId !== "number")) {
+  if (!user?.userId || (typeof user?.userId !== "string" && typeof user?.userId !== "number")) {
     return { valid: false, error: `Row ${index + 2}: Missing or invalid 'userId'` };
   }
-  if (!user.name || typeof user.name !== "string") {
+  if (!user?.name || typeof user?.name !== "string") {
     return { valid: false, error: `Row ${index + 2}: Missing or invalid 'name'` };
   }
-  if (!user.email || typeof user.email !== "string" || !isValidEmail(user.email)) {
+  if (!user?.email || typeof user?.email !== "string" || !isValidEmail(user.email)) {
     return { valid: false, error: `Row ${index + 2}: Invalid 'email'` };
   }
   if (user.profileImageUrl && !isValidUrl(user.profileImageUrl)) {
@@ -51,10 +51,10 @@ const buildPutRequests = (validUsers) =>
   validUsers.map((user) => ({
     PutRequest: {
       Item: {
-        userId: { S: user.userId.toString() },
-        name: { S: user.name },
-        email: { S: user.email },
-        profileImage: { S: user.profileImageUrl ?? "" },
+        userId: { S: user?.userId.toString() },
+        name: { S: user?.name },
+        email: { S: user?.email },
+        profileImage: { S: user?.profileImageUrl ?? "" },
       },
     },
   }));
@@ -120,7 +120,7 @@ export const handler = async (event) => {
 
     console.log(`Uploaded ${putRequests.length} records to DynamoDB.`);
     if (errors.length) {
-      console.log(`kipped ${errors.length} rows due to validation errors.`);
+      console.log(`skipped ${errors.length} rows due to validation errors.`);
     }
   } catch (err) {
     console.error("Lambda failed:", err);
