@@ -1,10 +1,11 @@
 {
   "name": "s3-excel-serverless",
   "version": "1.0.0",
-  "main": "handler.js",  
+  "main": "handler.ts",
+  "type": "module",
   "scripts": {
     "deploy": "serverless deploy",
-    "remove": "serverless remove"
+    "build": "esbuild src/handler.ts --bundle --platform=node --target=node18 --outfile=dist/handler.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.840.0",
@@ -12,7 +13,10 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "serverless": "^3.40.0"
+    "@types/aws-lambda": "^8.10.150",
+    "serverless": "^3.40.0",
+    "serverless-esbuild": "^1.55.1",
+    "typescript": "^5.8.3"
   },
   "keywords": [],
   "author": "",

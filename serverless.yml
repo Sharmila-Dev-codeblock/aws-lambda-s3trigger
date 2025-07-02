@@ -28,6 +28,10 @@ functions:
           existing: true 
           forceDeploy: true 
 
+
+plugins:
+  - serverless-esbuild
+
 custom:
   esbuild:
     bundle: true
